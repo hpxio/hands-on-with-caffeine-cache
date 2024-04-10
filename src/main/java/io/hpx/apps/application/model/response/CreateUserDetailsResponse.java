@@ -6,11 +6,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public record UserDetailsResponse(
-    @JsonProperty("user_age") int age,
-    @JsonProperty("user_name") String userName,
-    @JsonProperty("user_nick_name") String userNickName,
-    @JsonProperty("user_uuid") String user_uuid,
-    @JsonProperty("user_status") boolean user_status) {
-
+public record CreateUserDetailsResponse(@JsonProperty("user_nick_name") String user_nick_name,
+                                        @JsonProperty("user_uuid") String user_uuid) {
 }

@@ -29,15 +29,22 @@ public class ApplicationCacheConfig {
   public CaffeineCacheManager getPrimaryCacheManager() {
     CaffeineCacheManager cacheManager = new CaffeineCacheManager("defaultCacheManager");
     cacheManager.registerCustomCache("defaultUserDetailsCache", defaultUserDetailsCache());
+    cacheManager.registerCustomCache("statEnabledUserDetailsCache", statEnabledUserDetailsCache());
     return cacheManager;
   }
 
-  public Cache<Object, Object> defaultUserDetailsCache() {
-    return Caffeine
-        .newBuilder()
-        .recordStats()
-        .maximumSize(DEFAULT_MAX_SIZE)
-        .initialCapacity(DEFAULT_INITIAL_CAPACITY)
-        .expireAfterAccess(DEFAULT_TTL_DURATION, TimeUnit.MINUTES).build();
+  private Cache<Object, Object> defaultUserDetailsCache() {
+    return Caffeine.newBuilder() // build instance of cache
+        .recordStats() // enable cache metrics & run-time stats
+        .maximumSize(DEFAULT_MAX_SIZE) // maximum number of objects allowed
+        .initialCapacity(DEFAULT_INITIAL_CAPACITY) // default initial allowed objects
+        .expireAfterAccess(DEFAULT_TTL_DURATION, TimeUnit.MINUTES).build(); // eviction based on TTL
+  }
+
+  private Cache<Object, Object> statEnabledUserDetailsCache() {
+    return Caffeine.newBuilder().recordStats() // enable cache metrics & run-time stats
+        .maximumSize(DEFAULT_MAX_SIZE) // maximum number of objects allowed
+        .initialCapacity(DEFAULT_INITIAL_CAPACITY) // default initial allowed objects
+        .expireAfterAccess(DEFAULT_TTL_DURATION, TimeUnit.MINUTES).build();// eviction based on TTL
   }
 }
