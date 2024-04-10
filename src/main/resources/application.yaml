@@ -12,3 +12,14 @@ spring:
     database-platform: org.hibernate.dialect.MySQLDialect
 server:
   shutdown: graceful
+
+management:
+  server:
+    port: 8085
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    prometheus:
+      enabled: true

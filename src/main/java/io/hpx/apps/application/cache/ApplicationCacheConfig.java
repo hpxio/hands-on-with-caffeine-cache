@@ -41,6 +41,7 @@ public class ApplicationCacheConfig {
         .expireAfterAccess(DEFAULT_TTL_DURATION, TimeUnit.MINUTES).build(); // eviction based on TTL
   }
 
+  /* TODO: to be used later with W/O Cache demo */
   private Cache<Object, Object> statEnabledUserDetailsCache() {
     return Caffeine.newBuilder().recordStats() // enable cache metrics & run-time stats
         .maximumSize(DEFAULT_MAX_SIZE) // maximum number of objects allowed
